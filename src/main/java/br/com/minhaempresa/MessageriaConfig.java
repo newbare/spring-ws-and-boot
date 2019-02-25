@@ -20,7 +20,7 @@ import java.util.Properties;
 @EnableJms
 public class MessageriaConfig {
 
-    public static final String FILA_RECUPERAR_PECA = "fila_documentos";
+    public static final String FILA_RECUPERAR_PECA = "java:jms/queue/test";
     private static final Logger Logger = LoggerFactory.getLogger(MessageriaConfig.class);
 
     @Bean
