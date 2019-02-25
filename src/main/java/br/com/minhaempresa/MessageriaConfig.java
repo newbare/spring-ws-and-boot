@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
+import org.springframework.jms.connection.UserCredentialsConnectionFactoryAdapter;
 import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.jndi.JndiObjectFactoryBean;
 import org.springframework.jndi.JndiTemplate;
@@ -55,7 +56,12 @@ public class MessageriaConfig {
         } catch (NamingException e) {
             e.printStackTrace();
         }
-        return (ConnectionFactory) objectFactoryBean.getObject();
+        ConnectionFactory factory = (ConnectionFactory) objectFactoryBean.getObject();
+        UserCredentialsConnectionFactoryAdapter userCredentialsConnectionFactoryAdapter = new UserCredentialsConnectionFactoryAdapter();
+        userCredentialsConnectionFactoryAdapter.setUsername("teste");
+        userCredentialsConnectionFactoryAdapter.setPassword("jbo$$122333");
+        userCredentialsConnectionFactoryAdapter.setTargetConnectionFactory(factory);
+        return userCredentialsConnectionFactoryAdapter;
     }
 
     @Bean
